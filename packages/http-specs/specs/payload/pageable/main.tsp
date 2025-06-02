@@ -20,6 +20,32 @@ alias HeaderAndQuery = {
   @query bar?: string;
 };
 
+@scenario
+@scenarioDoc("""
+  Test case for basic pagination without nextLink or continuationToken.
+  This tests the simplest form of pagination where an operation is marked 
+  with @list and returns a model with @pageItems, but without any pagination 
+  metadata like nextLink or continuationToken.
+  
+  Expected route: /payload/pageable/basic
+  Expected response body:
+  ```json
+  { "pets": [
+      { "id": "1", "name": "dog" },
+      { "id": "2", "name": "cat" },
+      { "id": "3", "name": "bird" },
+      { "id": "4", "name": "fish" }
+    ]
+  }
+  ```
+  """)
+@route("/basic")
+@list
+op basic(): {
+  @pageItems
+  pets: Pet[];
+};
+
 @route("/server-driven-pagination")
 namespace ServerDrivenPagination {
   @scenario

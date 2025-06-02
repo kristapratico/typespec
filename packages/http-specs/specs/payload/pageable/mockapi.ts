@@ -20,6 +20,13 @@ const SecondPage = [
   { id: "4", name: "fish" },
 ];
 
+const AllPets = [
+  { id: "1", name: "dog" },
+  { id: "2", name: "cat" },
+  { id: "3", name: "bird" },
+  { id: "4", name: "fish" },
+];
+
 const FirstResponseTokenInBody = {
   status: 200,
   body: json({
@@ -94,6 +101,21 @@ function createTests(reqInfo: "query" | "header", resInfo: "body" | "header") {
     },
   ]);
 }
+
+Scenarios.Payload_Pageable_basic = passOnSuccess([
+  {
+    uri: "/payload/pageable/basic",
+    method: "get",
+    request: {},
+    response: {
+      status: 200,
+      body: json({
+        pets: AllPets,
+      }),
+    },
+    kind: "MockApiDefinition",
+  },
+]);
 
 Scenarios.Payload_Pageable_ServerDrivenPagination_link = passOnSuccess([
   {
